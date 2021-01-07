@@ -11,9 +11,10 @@ combine_data = pd.DataFrame()
 i = 0
 
 for title in info_detail['bidding_table_titles_list']:
-    sub_title = title.split(',')
-    # sub_item = info_detail['bidding_table_items_list'][i].split(',')
+    sub_title = title.split('|')
+    print(sub_title)
     i = i + 1
+    # sub_item = info_detail['bidding_table_items_list'][i].split(',')
 
     # print(len(sub_item))
     # print(len(sub_title))

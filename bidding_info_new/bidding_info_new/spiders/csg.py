@@ -117,8 +117,8 @@ class CsgSpider(scrapy.Spider):
 
             print('-----------------------')
 
-            BiddingInfoDetail['bidding_table_titles_list'] = ",".join(bidding_table_titles_list)
-            BiddingInfoDetail['bidding_table_items_list'] = ",".join(bidding_table_items_list)
+            BiddingInfoDetail['bidding_table_titles_list'] = "|".join(bidding_table_titles_list)
+            BiddingInfoDetail['bidding_table_items_list'] = "|".join(bidding_table_items_list)
 
             yield BiddingInfoDetail
 
