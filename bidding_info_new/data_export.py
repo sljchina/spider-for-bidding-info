@@ -44,7 +44,7 @@ for index , row in info_detail.iterrows():
             combine_data = pd.concat([combine_data, new_pd] , axis=0, ignore_index=True)
         except:
             print("出错了")
-    # print(combine_data)
+    print(combine_data)
     
 
 combine_data.to_excel('final_format.xlsx', encoding='utf8')
