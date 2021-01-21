@@ -71,6 +71,14 @@ class BiddingInfoNewDownloaderMiddleware:
     # scrapy acts as if the downloader middleware does not modify the
     # passed objects.
 
+    def __init__(self, timeout=None, service_args=[]):
+        self.logger = getLogger(__name__)
+        self.timeout = timeout
+        self.browser = webdriver.PhantomJS(service_args=service_args)
+        self.browser.set_window_size(1400, 700)
+        self.browser.set_page_load_timeout(self.timeout)
+        self.wait = WebDriverWait(self.browser, self.timeout)
+
     @classmethod
     def from_crawler(cls, crawler):
         # This method is used by Scrapy to create your spiders.
