@@ -9,6 +9,16 @@ from scrapy import signals
 from itemadapter import is_item, ItemAdapter
 
 
+from selenium import webdriver
+from selenium.common.exceptions import TimeoutException
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from scrapy.http import HtmlResponse
+from logging import getLogger
+from selenium.common.exceptions import TimeoutException, NoSuchElementException
+
+
 class BiddingInfoNewSpiderMiddleware:
     # Not all methods need to be defined. If a method is not defined,
     # scrapy acts as if the spider middleware does not modify the
@@ -69,6 +79,23 @@ class BiddingInfoNewDownloaderMiddleware:
         return s
 
     def process_request(self, request, spider):
+
+        if spider.name == 'sgcc':
+            spider.driver.get(request.url)
+            try:
+                wait = WebDriverWait(spider.driver, 5)
+                # wait.until(EC.presence_of_all_elements_located(By.XPATH, ""))
+
+                origin_code = spider.driver.page_source
+
+                res = HtmlResponse(url=request.url, encodeing = 'utf8', body=origin_code, request=request)
+                
+                return res
+            except TimeoutException:
+                print('time out')
+            except NoSuchElementException:
+                print('no such element')
+        return None
         # Called for each request that goes through the downloader
         # middleware.
 
